@@ -69,40 +69,38 @@
     const maxX = arenaRect.width - btnRect.width;
     const maxY = arenaRect.height - btnRect.height;
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
-
-    noBtn.style.left = `${x}px`;
-    noBtn.style.top = `${y}px`;
+    noBtn.style.left = `${Math.random() * maxX}px`;
+    noBtn.style.top  = `${Math.random() * maxY}px`;
   }
 
   noBtn.addEventListener("mouseenter", moveNoButton);
   noBtn.addEventListener("mouseover", moveNoButton);
-  noBtn.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    moveNoButton();
-  });
+  noBtn.addEventListener("touchstart", (e) => { e.preventDefault(); moveNoButton(); });
+
+  let saidYes = false;
 
   yesBtn.addEventListener("click", () => {
-    result.textContent = "Yay!! 💖 I knew it 😍";
+    if (!saidYes) {
+      saidYes = true;
 
-    yesBtn.textContent = "Best Valentine Ever 💘";
-    noBtn.style.display = "none";
+      result.textContent = "Yay!! 💖 I knew it 😍";
+      yesBtn.textContent = "Best Valentine Ever 💘";
+      noBtn.style.display = "none";
 
-    const gif = document.querySelector(".gif");
-    if (gif) {
-      gif.src =
-        "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif";
+      const gif = document.querySelector(".gif");
+      if (gif) {
+        gif.src = "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif";
+      }
+
+      return; // stop here on first click
     }
 
-    // SECOND CLICK → WhatsApp
-    yesBtn.onclick = () => {
-      window.open(
-        "https://wa.me/16132130789?text=I%20said%20YES%20Valentine%20%F0%9F%92%96",
-        "_blank"
-      );
-    };
+    // second click → WhatsApp
+    window.open(
+      "https://wa.me/16132130789?text=I%20said%20YES%20Valentine%20%F0%9F%92%96",
+      "_blank"
+    );
   });
-  </script>
+</script>
 </body>
 </html>
