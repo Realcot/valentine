@@ -57,36 +57,52 @@
   </div>
 
   <script>
-    const noBtn = document.getElementById("no");
-    const yesBtn = document.getElementById("yes");
-    const arena = document.getElementById("arena");
-    const result = document.getElementById("result");
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const arena = document.getElementById("arena");
+  const result = document.getElementById("result");
 
-    function moveNoButton() {
-      const arenaRect = arena.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
+  function moveNoButton() {
+    const arenaRect = arena.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
 
-      // Keep it inside the arena
-      const maxX = arenaRect.width - btnRect.width;
-      const maxY = arenaRect.height - btnRect.height;
+    const maxX = arenaRect.width - btnRect.width;
+    const maxY = arenaRect.height - btnRect.height;
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
 
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+  }
+
+  noBtn.addEventListener("mouseenter", moveNoButton);
+  noBtn.addEventListener("mouseover", moveNoButton);
+  noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    moveNoButton();
+  });
+
+  yesBtn.addEventListener("click", () => {
+    result.textContent = "Yay!! 💖 I knew it 😍";
+
+    yesBtn.textContent = "Best Valentine Ever 💘";
+    noBtn.style.display = "none";
+
+    const gif = document.querySelector(".gif");
+    if (gif) {
+      gif.src =
+        "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif";
     }
 
-    // Make "No" dodge when she gets close (more fun than only on hover)
-    noBtn.addEventListener("mouseenter", moveNoButton);
-    noBtn.addEventListener("mouseover", moveNoButton);
-    noBtn.addEventListener("touchstart", (e) => { e.preventDefault(); moveNoButton(); });
-
-    yesBtn.addEventListener("click", () => {
-      result.textContent = "Yay!! 💞 I knew it 😍";
-      noBtn.style.display = "none";
-      yesBtn.textContent = "Best Valentine Ever 💘";
-    });
+    // SECOND CLICK → WhatsApp
+    yesBtn.onclick = () => {
+      window.open(
+        "https://wa.me/16132130789?text=I%20said%20YES%20Valentine%20%F0%9F%92%96",
+        "_blank"
+      );
+    };
+  });
   </script>
 </body>
 </html>
